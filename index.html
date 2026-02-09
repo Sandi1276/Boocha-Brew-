@@ -1,92 +1,22 @@
 <!DOCTYPE html>
-<html lang="id">
+<html>
 <head>
-  <meta charset="UTF-8">
   <title>Boocha Brew Landing Page</title>
-
-  <style>
-    body {
-      margin: 0;
-    }
-
-    .hero img {
-      width: 100%;
-      display: block;
-    }
-
-    #muteBtn {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      background: rgba(0,0,0,0.7);
-      color: white;
-      border: none;
-      font-size: 20px;
-      cursor: pointer;
-      z-index: 99999;
-    }
-  </style>
 </head>
+<body style="margin:0;">
 
-<body>
+  <img src="Landingpages Boocha Brew 1.png" style="width:100%; display:block;">
 
-  <div class="hero">
-    <img src="Landingpages Boocha Brew 1.png" alt="Boocha Brew">
-  </div>
-
-  <!-- Audio -->
-  <audio id="bgMusic" preload="auto" loop>
-    <source src="chill-guitar.mp3" type="audio/mpeg">
+  <audio id="bgMusic" loop>
+    <source src="Chill Guitar Beat - Oceans Prod. Pacific.mp3" type="audio/mpeg">
   </audio>
-
-  <!-- Mute Button -->
-  <button id="muteBtn">🔇</button>
 
   <script>
     const music = document.getElementById("bgMusic");
-    const muteBtn = document.getElementById("muteBtn");
-
-    let hasInteracted = false;
-
-    // MAIN trigger: click / touch pertama
-    function startMusic() {
-      if (hasInteracted) return;
-
+    document.body.addEventListener("click", () => {
       music.volume = 0.3;
-      music.muted = false;
-
-      const playPromise = music.play();
-      if (playPromise !== undefined) {
-        playPromise.then(() => {
-          muteBtn.textContent = "🔊";
-          hasInteracted = true;
-        }).catch(() => {
-          // kalau gagal, biarin user klik tombol mute
-        });
-      }
-    }
-
-    // Desktop
-    document.addEventListener("click", startMusic, { once: true });
-
-    // Mobile (penting!)
-    document.addEventListener("touchstart", startMusic, { once: true });
-
-    // Toggle mute
-    muteBtn.addEventListener("click", (e) => {
-      e.stopPropagation();
-
-      // Kalau musik belum jalan, paksa start
-      if (!hasInteracted) {
-        startMusic();
-      }
-
-      music.muted = !music.muted;
-      muteBtn.textContent = music.muted ? "🔇" : "🔊";
-    });
+      music.play();
+    }, { once: true });
   </script>
 
 </body>
