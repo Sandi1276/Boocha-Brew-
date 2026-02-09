@@ -7,9 +7,17 @@
 
   <img src="Landingpages Boocha Brew 1.png" style="width:100%; display:block;">
 
-  <audio autoplay loop>
+  <audio id="bgMusic" loop>
     <source src="Chill Guitar Beat - Oceans Prod. Pacific.mp3" type="audio/mpeg">
   </audio>
+
+  <script>
+    const music = document.getElementById("bgMusic");
+    document.body.addEventListener("click", () => {
+      music.volume = 0.3;
+      music.play();
+    }, { once: true });
+  </script>
 
 </body>
 </html>
