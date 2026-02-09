@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
+  <meta charset="UTF-8">
   <title>Boocha Brew Landing Page</title>
 
   <style>
@@ -36,29 +37,53 @@
     <img src="Landingpages Boocha Brew 1.png" alt="Boocha Brew">
   </div>
 
-  <audio id="bgMusic" loop>
+  <!-- Audio -->
+  <audio id="bgMusic" preload="auto" loop>
     <source src="chill-guitar.mp3" type="audio/mpeg">
   </audio>
 
+  <!-- Mute Button -->
   <button id="muteBtn">🔇</button>
 
   <script>
     const music = document.getElementById("bgMusic");
     const muteBtn = document.getElementById("muteBtn");
 
-    let isPlaying = false;
+    let hasInteracted = false;
 
-    document.body.addEventListener("click", () => {
-      if (!isPlaying) {
-        music.volume = 0.3;
-        music.play();
-        muteBtn.textContent = "🔊";
-        isPlaying = true;
+    // MAIN trigger: click / touch pertama
+    function startMusic() {
+      if (hasInteracted) return;
+
+      music.volume = 0.3;
+      music.muted = false;
+
+      const playPromise = music.play();
+      if (playPromise !== undefined) {
+        playPromise.then(() => {
+          muteBtn.textContent = "🔊";
+          hasInteracted = true;
+        }).catch(() => {
+          // kalau gagal, biarin user klik tombol mute
+        });
       }
-    }, { once: true });
+    }
 
+    // Desktop
+    document.addEventListener("click", startMusic, { once: true });
+
+    // Mobile (penting!)
+    document.addEventListener("touchstart", startMusic, { once: true });
+
+    // Toggle mute
     muteBtn.addEventListener("click", (e) => {
       e.stopPropagation();
+
+      // Kalau musik belum jalan, paksa start
+      if (!hasInteracted) {
+        startMusic();
+      }
+
       music.muted = !music.muted;
       muteBtn.textContent = music.muted ? "🔇" : "🔊";
     });
