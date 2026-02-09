@@ -4,7 +4,15 @@
   <title>Boocha Brew Landing Page</title>
 
   <style>
-    /* Tombol mute */
+    body {
+      margin: 0;
+    }
+
+    .hero img {
+      width: 100%;
+      display: block;
+    }
+
     #muteBtn {
       position: fixed;
       bottom: 20px;
@@ -12,41 +20,34 @@
       width: 44px;
       height: 44px;
       border-radius: 50%;
-      background: rgba(0,0,0,0.6);
+      background: rgba(0,0,0,0.7);
       color: white;
       border: none;
       font-size: 20px;
       cursor: pointer;
-      z-index: 9999;
-    }
-
-    #muteBtn:hover {
-      background: rgba(0,0,0,0.8);
+      z-index: 99999;
     }
   </style>
 </head>
 
-<body style="margin:0;">
+<body>
 
-  <!-- Landing Image -->
-  <img src="Landingpages Boocha Brew 1.png" style="width:100%; display:block;">
+  <div class="hero">
+    <img src="Landingpages Boocha Brew 1.png" alt="Boocha Brew">
+  </div>
 
-  <!-- Audio -->
   <audio id="bgMusic" loop>
     <source src="chill-guitar.mp3" type="audio/mpeg">
   </audio>
 
-  <!-- Mute Button -->
   <button id="muteBtn">🔇</button>
 
-  <!-- Script -->
   <script>
     const music = document.getElementById("bgMusic");
     const muteBtn = document.getElementById("muteBtn");
 
     let isPlaying = false;
 
-    // Play music on first user interaction
     document.body.addEventListener("click", () => {
       if (!isPlaying) {
         music.volume = 0.3;
@@ -56,9 +57,8 @@
       }
     }, { once: true });
 
-    // Toggle mute
     muteBtn.addEventListener("click", (e) => {
-      e.stopPropagation(); // biar nggak trigger body click
+      e.stopPropagation();
       music.muted = !music.muted;
       muteBtn.textContent = music.muted ? "🔇" : "🔊";
     });
